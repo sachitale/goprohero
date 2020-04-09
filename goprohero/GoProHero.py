@@ -10,16 +10,13 @@ import unicodedata
 from colorama import Fore
 
 # urllib support for Python 2 and Python 3
-try:
-    from urllib.request import urlopen, HTTPError, URLError
-except ImportError:
-    from urllib2 import urlopen, HTTPError, URLError
+from urllib.request import urlopen, HTTPError, URLError
 
 # attempt imports for image() function
 try:
     import cv2
     from PIL import Image
-    import StringIO
+    from io import StringIO
     import base64
 except ImportError:
     pass
@@ -490,8 +487,8 @@ class GoProHero:
     }
 
     def __init__(
-            self, ip='10.5.5.9', password='password', log_level=logging.INFO):
-        self._ip = ip
+            self, ip='10.5.5.9', port='8080', password='password', log_level=logging.INFO):
+        self._ip = "%s:%s" % (ip, port)
         self._password = password
 
         # setup log
